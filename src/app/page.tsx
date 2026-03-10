@@ -40,11 +40,11 @@ export default function Home() {
 
   // Get device icon and label
   const getDeviceLabel = (width: number | '') => {
-    if (width === '') return '❓ 미설정';
-    if (width < 640) return '📲 모바일';
-    if (width < 1024) return '📱 태블릿';
-    if (width < 1280) return '💻 노트북';
-    return '🖥️ 데스크탑';
+    if (width === '') return '미설정';
+    if (width < 640) return '모바일';
+    if (width < 1024) return '태블릿';
+    if (width < 1280) return '노트북';
+    return '데스크탑';
   };
 
   // Helper function to calculate a single clamp string between two points
