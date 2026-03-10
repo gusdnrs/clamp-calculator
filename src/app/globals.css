@@ -1,29 +1,29 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-background: #09090b; /* Extremely dark gray/black */
-  --color-foreground: #fafafa;
+  --color-toss-blue: #3182f6;
+  --color-toss-blue-hover: #1b64da;
+  --color-toss-blue-active: #0b2b80;
 
-  /* Primary gradient colors */
-  --color-primary: #00f0ff; /* Cyber cyan */
-  --color-primary-hover: #00d5ff;
-  --color-secondary: #ff0055; /* Neon pink */
+  --color-toss-bg: #ffffff;
+  --color-toss-surface: #f9fafb;
+  --color-toss-input: #f2f4f6;
+  --color-toss-input-hover: #e5e8eb;
 
-  --color-card-bg: rgba(255, 255, 255, 0.03); /* Glass backdrop */
-  --color-border-custom: rgba(255, 255, 255, 0.08); /* Barely visible border */
-  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-toss-text-title: #191f28;
+  --color-toss-text-subtitle: #4e5968;
+  --color-toss-text-muted: #8b95a1;
 
-  --color-text-muted: #a1a1aa; /* Zinc-400 */
-  --color-input-bg: rgba(0, 0, 0, 0.2);
+  --color-toss-border: #e5e8eb;
+  --color-toss-border-hover: #d1d6db;
 
-  --radius-xl: 32px;
-  --radius-lg: 24px;
-  --radius-md: 16px;
+  --shadow-toss-card: 0 8px 24px rgba(0, 0, 0, 0.04);
+  --shadow-toss-btn: 0 4px 12px rgba(49, 130, 246, 0.2);
 
-  /* Ethereal Glows instead of hard shadows */
-  --shadow-glow: 0 0 40px -10px rgba(0, 240, 255, 0.15);
-  --shadow-btn: 0 0 20px -5px rgba(0, 240, 255, 0.4);
-  --shadow-btn-active: 0 0 10px rgba(0, 240, 255, 0.6) inset;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
 
   --font-sans:
     'Jua', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
@@ -31,20 +31,17 @@
 }
 
 :root {
-  --background: var(--color-background);
-  --foreground: var(--color-foreground);
-  --primary: var(--color-primary);
-  --primary-hover: var(--color-primary-hover);
-  --primary-shadow: var(--color-primary-shadow);
-  --card-bg: var(--color-card-bg);
-  --border: var(--color-border-custom);
-  --text-muted: var(--color-text-muted);
+  --background: var(--color-toss-bg);
+  --foreground: var(--color-toss-text-title);
+  --primary: var(--color-toss-blue);
+  --primary-hover: var(--color-toss-blue-hover);
+  --card-bg: var(--color-toss-surface);
+  --border: var(--color-toss-border);
+  --text-muted: var(--color-toss-text-muted);
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 body {
