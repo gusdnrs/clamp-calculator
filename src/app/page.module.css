@@ -404,13 +404,27 @@
   }
 
   .bpListContainer {
-    margin: 0 -1.5rem;
-    padding: 0 1.5rem;
-    width: calc(100% + 3rem);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .bpScroller {
+    display: flex;
+    flex-direction: column;
+    overflow-x: visible;
+    padding: 0.5rem 0 1rem 0;
   }
 
   .bpCard {
-    flex: 0 0 250px;
-    padding: 1rem;
+    flex: none;
+    width: 100%;
+    padding: 1.25rem;
+  }
+
+  .addNodeCard {
+    flex: none;
+    width: 100%;
+    min-height: 120px;
   }
 }
