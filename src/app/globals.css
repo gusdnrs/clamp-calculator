@@ -1,22 +1,29 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-background: #f2f4f6;
-  --color-foreground: #191f28;
-  --color-primary: #3182f6;
-  --color-primary-hover: #1b64da;
-  --color-primary-shadow: #1b64da;
-  --color-card-bg: #ffffff;
-  --color-border-custom: #e5e8eb;
-  --color-text-muted: #8b95a1;
+  --color-background: #09090b; /* Extremely dark gray/black */
+  --color-foreground: #fafafa;
+
+  /* Primary gradient colors */
+  --color-primary: #00f0ff; /* Cyber cyan */
+  --color-primary-hover: #00d5ff;
+  --color-secondary: #ff0055; /* Neon pink */
+
+  --color-card-bg: rgba(255, 255, 255, 0.03); /* Glass backdrop */
+  --color-border-custom: rgba(255, 255, 255, 0.08); /* Barely visible border */
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+
+  --color-text-muted: #a1a1aa; /* Zinc-400 */
+  --color-input-bg: rgba(0, 0, 0, 0.2);
 
   --radius-xl: 32px;
   --radius-lg: 24px;
   --radius-md: 16px;
 
-  --shadow-3d: 0 8px 30px rgba(0, 0, 0, 0.04);
-  --shadow-btn: 0 4px 12px rgba(49, 130, 246, 0.2);
-  --shadow-btn-active: 0 2px 6px rgba(49, 130, 246, 0.2);
+  /* Ethereal Glows instead of hard shadows */
+  --shadow-glow: 0 0 40px -10px rgba(0, 240, 255, 0.15);
+  --shadow-btn: 0 0 20px -5px rgba(0, 240, 255, 0.4);
+  --shadow-btn-active: 0 0 10px rgba(0, 240, 255, 0.6) inset;
 
   --font-sans:
     'Jua', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',

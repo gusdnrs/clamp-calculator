@@ -234,51 +234,66 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-12 px-4 relative overflow-x-hidden bg-[var(--color-background)]">
+    <main className="flex flex-col items-center justify-center min-h-screen py-16 px-4 relative overflow-x-hidden bg-[var(--color-background)]">
+      {/* Background Orbs */}
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[var(--color-primary)] rounded-full mix-blend-screen filter blur-[120px] opacity-20 pointer-events-none animate-[pulse_8s_ease-in-out_infinite]" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[var(--color-secondary)] rounded-full mix-blend-screen filter blur-[150px] opacity-20 pointer-events-none animate-[pulse_10s_ease-in-out_infinite]" />
+
       <style>{`
-        @keyframes fadeInOut {
-          0% { opacity: 0; transform: translate(-50%, 50px) scale(0.9); }
-          15% { opacity: 1; transform: translate(-50%, 0) scale(1); }
-          85% { opacity: 1; transform: translate(-50%, 0) scale(1); }
-          100% { opacity: 0; transform: translate(-50%, -20px) scale(0.9); }
-        }
         @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
+          from { opacity: 0; transform: translateY(30px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+          100% { transform: translateY(0px); }
         }
       `}</style>
 
-      <div className="w-full max-w-[900px] mb-8 animate-[fadeInUp_0.4s_ease-out_forwards]">
-        <h1 className="text-3xl font-bold mb-2 text-[#191f28] tracking-tight">
-          반응형 CSS 제너레이터
+      {/* Header */}
+      <div className="w-full max-w-[960px] mb-12 text-center animate-[fadeInUp_0.6s_ease-out_forwards] z-10">
+        <h1 className="text-5xl font-extrabold mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] via-indigo-400 to-[var(--color-secondary)] drop-shadow-[0_0_15px_rgba(0,240,255,0.3)] block pb-2">
+          Fluid Typography Gen
         </h1>
-        <p className="text-base text-[#4e5968] font-medium">
-          원하는 구간을 설정해 Tailwind V4용 유동적 타이포그래피 산식을 만드세요
+        <p className="text-lg text-[var(--color-text-muted)] font-medium max-w-2xl mx-auto">
+          Create perfectly scalable, responsive typography for{' '}
+          <span className="text-white font-semibold">Tailwind V4</span> using
+          precision math.
         </p>
       </div>
 
-      <div className="bg-[var(--color-card-bg)] rounded-[var(--radius-xl)] shadow-[var(--shadow-3d)] p-6 md:p-10 w-full max-w-[900px] animate-[fadeInUp_0.5s_ease-out_forwards]">
-        <div className="text-lg font-bold text-[#191f28] mb-4">기본 설정</div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-[13px] font-semibold text-[#6b7684]">
-              클래스 이름
+      <div className="bg-[var(--color-card-bg)] backdrop-blur-2xl rounded-[var(--radius-xl)] border border-[var(--color-border-custom)] p-6 md:p-10 w-full max-w-[960px] animate-[fadeInUp_0.8s_ease-out_forwards] shadow-2xl relative z-10">
+        {/* Base Settings */}
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-[var(--shadow-glow)]">
+            1
+          </div>
+          <h2 className="text-xl font-bold text-[var(--color-foreground)] tracking-wide">
+            Base Configuration
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+          <div className="flex flex-col gap-2 w-full group">
+            <label className="text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-wider ml-1 group-focus-within:text-[var(--color-primary)] transition-colors">
+              Class Name
             </label>
             <input
               type="text"
-              className="w-full box-border py-4 px-5 rounded-[var(--radius-lg)] bg-[#f2f4f6] text-[15px] font-semibold text-[#191f28] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#3182f6] placeholder:font-normal placeholder:text-[#b0b8c1]"
+              className="w-full box-border py-4 px-5 rounded-[var(--radius-lg)] bg-[var(--color-input-bg)] border border-[var(--color-border-custom)] text-base font-semibold text-white transition-all duration-300 focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_15px_rgba(0,240,255,0.2)] placeholder:text-zinc-600 backdrop-blur-md"
               value={className}
               onChange={(e) => setClassName(e.target.value)}
-              placeholder="text-h1"
+              placeholder="e.g. text-fluid-h1"
             />
           </div>
-          <div className="flex flex-col gap-2 w-full">
-            <label className="text-[13px] font-semibold text-[#6b7684]">
-              기준 폰트 (px)
+          <div className="flex flex-col gap-2 w-full group">
+            <label className="text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-wider ml-1 group-focus-within:text-[var(--color-primary)] transition-colors">
+              Base Font Size (px)
             </label>
             <input
               type="number"
-              className="w-full box-border py-4 px-5 rounded-[var(--radius-lg)] bg-[#f2f4f6] text-[15px] font-semibold text-[#191f28] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#3182f6] placeholder:font-normal placeholder:text-[#b0b8c1]"
+              className="w-full box-border py-4 px-5 rounded-[var(--radius-lg)] bg-[var(--color-input-bg)] border border-[var(--color-border-custom)] text-base font-semibold text-white transition-all duration-300 focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_15px_rgba(0,240,255,0.2)] placeholder:text-zinc-600 backdrop-blur-md"
               value={baseFont || ''}
               onChange={(e) => setBaseFont(Number(e.target.value))}
               placeholder="16"
@@ -286,65 +301,87 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="text-lg font-bold text-[#191f28] mb-4 flex items-center justify-between">
-          기기별 구간 (Breakpoints)
+        {/* Divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-[var(--color-border-hover)] to-transparent my-10" />
+
+        {/* Breakpoints */}
+        <div className="flex items-center justify-between gap-3 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--color-secondary)] to-purple-600 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_20px_rgba(255,0,85,0.3)]">
+              2
+            </div>
+            <h2 className="text-xl font-bold text-[var(--color-foreground)] tracking-wide">
+              Breakpoints Strategy
+            </h2>
+          </div>
+          <span className="text-xs font-medium text-[var(--color-primary)] bg-[rgba(0,240,255,0.1)] px-3 py-1.5 rounded-full border border-[rgba(0,240,255,0.2)] hidden md:block">
+            Scroll horizontally to add more
+          </span>
         </div>
 
-        {/* Breakpoints Container */}
-        <div className="w-full">
-          <div className="flex flex-col md:flex-row overflow-x-visible md:overflow-x-auto gap-4 py-2 md:pb-6 snap-x snap-mandatory scrollbar-hide">
+        <div className="w-full md:-mx-4 md:px-4">
+          <div className="flex flex-col md:flex-row overflow-x-visible md:overflow-x-auto gap-5 py-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-[var(--color-border-hover)] scrollbar-track-transparent">
             {bps.map((bp, i) => (
               <div
                 key={bp.id}
-                className="flex-none w-full md:w-[260px] snap-start bg-white p-6 rounded-[var(--radius-lg)] border border-[#e5e8eb] transition-all duration-200 hover:md:-translate-y-1 hover:shadow-md relative flex flex-col justify-start"
+                className="flex-none w-full md:w-[280px] snap-center bg-[var(--color-input-bg)] backdrop-blur-md p-6 rounded-[var(--radius-lg)] border border-[var(--color-border-custom)] transition-all duration-300 hover:border-[var(--color-primary)] hover:bg-[rgba(255,255,255,0.05)] hover:shadow-[0_10px_30px_-10px_rgba(0,240,255,0.15)] relative flex flex-col group"
               >
                 {bps.length > 2 && (
                   <button
-                    className="absolute -top-2 -right-2 w-[26px] h-[26px] rounded-full bg-red-50 text-red-500 hover:bg-red-500 hover:text-white font-medium text-xs cursor-pointer flex items-center justify-center transition-all duration-200"
+                    className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-zinc-800 text-zinc-400 border border-zinc-700 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500 font-bold text-sm cursor-pointer flex items-center justify-center transition-all duration-200 z-10 opacity-0 group-hover:opacity-100 disabled:opacity-0"
                     onClick={() => removeNode(bp.id)}
-                    title="삭제"
+                    title="Remove Breakpoint"
                   >
                     ✕
                   </button>
                 )}
 
-                <div className="mb-5 flex justify-between items-center">
+                <div className="mb-6 flex justify-between items-center">
                   <span
-                    className={`px-2.5 py-1 rounded-[6px] text-[11px] font-bold tracking-wide ${i === 0 ? 'bg-[#3182f6] text-white' : 'bg-[#e8f3ff] text-[#3182f6]'}`}
+                    className={`px-3 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase border ${i === 0 ? 'bg-[var(--color-primary)] text-black border-[var(--color-primary)] shadow-[0_0_10px_rgba(0,240,255,0.5)]' : 'bg-transparent text-[var(--color-primary)] border-[var(--color-primary)]'}`}
                   >
                     {i === 0 ? 'BASE' : `STEP ${i}`}
                   </span>
-                  <span className="text-[12px] font-medium text-[#8b95a1]">
+                  <span className="text-xs font-semibold text-[var(--color-text-muted)] bg-black/40 px-2 py-1 rounded">
                     {getDeviceLabel(bp.width)}
                   </span>
                 </div>
 
-                <div className="flex flex-col gap-1.5 mb-4 w-full">
-                  <label className="text-[12px] font-semibold text-[#6b7684]">
-                    프리셋 선택
+                <div className="flex flex-col gap-2 mb-5 w-full">
+                  <label className="text-[11px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider">
+                    Preset
                   </label>
-                  <select
-                    className="w-full box-border py-3 px-4 rounded-[var(--radius-md)] bg-[#f2f4f6] text-[14px] font-semibold text-[#191f28] transition-all duration-200 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#3182f6] bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg_xmlns=%27http://www.w3.org/2000/svg%27_viewBox=%270_0_24_24%27_fill=%27none%27_stroke=%27%23b0b8c1%27_stroke-width=%272%27_stroke-linecap=%27round%27_stroke-linejoin=%27round%27%3e%3cpolyline_points=%276_9_12_15_18_9%27%3e%3c/polyline%3e%3c/svg%3e')] bg-no-repeat bg-[position:right_1rem_center] border-[length:1em] pr-10"
-                    value={bp.name}
-                    onChange={(e) =>
-                      handleBpChange(bp.id, 'name', e.target.value)
-                    }
-                  >
-                    {PRESETS.map((p) => (
-                      <option key={p.name} value={p.name}>
-                        {p.label}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      className="w-full box-border py-3 px-4 rounded-[var(--radius-md)] bg-black/40 border border-[var(--color-border-custom)] text-sm font-semibold text-white transition-all duration-200 appearance-none cursor-pointer focus:outline-none focus:border-[var(--color-primary)]"
+                      value={bp.name}
+                      onChange={(e) =>
+                        handleBpChange(bp.id, 'name', e.target.value)
+                      }
+                    >
+                      {PRESETS.map((p) => (
+                        <option
+                          key={p.name}
+                          value={p.name}
+                          className="bg-zinc-900"
+                        >
+                          {p.label}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--color-primary)]">
+                      ▼
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex flex-col gap-1.5 mb-4 w-full">
-                  <label className="text-[12px] font-semibold text-[#6b7684]">
-                    뷰포트 넓이 (px)
+                <div className="flex flex-col gap-2 mb-5 w-full">
+                  <label className="text-[11px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider">
+                    Viewport Width (px)
                   </label>
                   <input
                     type="number"
-                    className="w-full box-border py-3 px-4 rounded-[var(--radius-md)] bg-[#f2f4f6] text-[14px] font-semibold text-[#191f28] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#3182f6] disabled:bg-[#f9fafb] disabled:text-[#b0b8c1] disabled:cursor-not-allowed"
+                    className="w-full box-border py-3 px-4 rounded-[var(--radius-md)] bg-black/40 border border-[var(--color-border-custom)] text-sm font-semibold text-white transition-all duration-200 focus:outline-none focus:border-[var(--color-primary)] disabled:bg-zinc-900/50 disabled:text-zinc-600 disabled:cursor-not-allowed"
                     value={bp.width}
                     onChange={(e) =>
                       handleBpChange(
@@ -357,13 +394,13 @@ export default function Home() {
                   />
                 </div>
 
-                <div className="flex flex-col gap-1.5 m-0 w-full">
-                  <label className="text-[12px] font-semibold text-[#6b7684]">
-                    폰트 크기 (px)
+                <div className="flex flex-col gap-2 m-0 w-full mt-auto">
+                  <label className="text-[11px] font-bold text-[var(--color-primary)] uppercase tracking-wider drop-shadow-[0_0_5px_rgba(0,240,255,0.5)]">
+                    Target Font Size (px)
                   </label>
                   <input
                     type="number"
-                    className="w-full box-border py-3 px-4 rounded-[var(--radius-md)] bg-[#f2f4f6] text-[14px] font-semibold text-[#191f28] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#3182f6]"
+                    className="w-full box-border py-3 px-4 rounded-[var(--radius-md)] bg-black/60 border border-[var(--color-primary)]/30 text-base font-bold text-white transition-all duration-200 focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_15px_rgba(0,240,255,0.15)] focus:bg-[rgba(0,240,255,0.05)]"
                     value={bp.font}
                     onChange={(e) =>
                       handleBpChange(
@@ -378,40 +415,71 @@ export default function Home() {
             ))}
 
             <div
-              className="flex-none w-full md:w-[200px] min-h-[120px] md:min-h-full snap-start border border-dashed border-[#e5e8eb] bg-[#fafbfc] rounded-[var(--radius-lg)] flex flex-col items-center justify-center cursor-pointer text-[#8b95a1] transition-all duration-200 hover:bg-[#f2f4f6] hover:text-[#3182f6] hover:border-[#3182f6] active:scale-[0.98]"
+              className="flex-none w-full md:w-[220px] min-h-[140px] md:min-h-full snap-center border-2 border-dashed border-[var(--color-border-hover)] bg-[var(--color-input-bg)] backdrop-blur-sm rounded-[var(--radius-lg)] flex flex-col items-center justify-center cursor-pointer text-[var(--color-text-muted)] transition-all duration-300 hover:bg-[rgba(255,255,255,0.05)] hover:text-white hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-[0.98] group"
               onClick={addNode}
             >
-              <div className="text-3xl font-light mb-1">+</div>
-              <div className="text-[13px] font-medium">구간 추가</div>
+              <div className="text-4xl font-light mb-2 transition-transform group-hover:scale-125 group-hover:rotate-90 duration-300">
+                +
+              </div>
+              <div className="text-sm font-semibold tracking-wide uppercase">
+                Add Breakpoint
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-8">
-          <div className="flex justify-between items-end mb-3">
-            <h3 className="text-lg font-bold text-[#191f28]">결과값</h3>
-            <span className="text-[13px] font-medium text-[#8b95a1]">
-              Tailwind V4 @utility
-            </span>
+        {/* Divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-[var(--color-border-hover)] to-transparent my-10" />
+
+        {/* Output */}
+        <div>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_20px_rgba(52,211,153,0.3)]">
+              3
+            </div>
+            <div className="flex justify-between items-end w-full">
+              <h2 className="text-xl font-bold text-[var(--color-foreground)] tracking-wide">
+                Generated Output
+              </h2>
+              <span className="text-[11px] font-bold tracking-wider uppercase text-[var(--color-text-muted)] border border-[var(--color-border-custom)] px-2 py-1 rounded bg-black/40">
+                Tailwind V4 @utility
+              </span>
+            </div>
           </div>
-          {cssCodeblock && (
-            <pre className="bg-[#f2f4f6] text-[#333d4b] p-5 rounded-[var(--radius-lg)] font-mono text-[13px] leading-relaxed overflow-x-auto mb-6">
-              {cssCodeblock}
-            </pre>
-          )}
+
+          <div className="relative group mb-8">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] rounded-[var(--radius-lg)] opacity-20 group-hover:opacity-40 blur transition duration-500"></div>
+            {cssCodeblock ? (
+              <pre className="relative bg-[#050505] text-emerald-300 p-6 rounded-[var(--radius-lg)] font-mono text-sm leading-relaxed overflow-x-auto border border-zinc-800 shadow-inner max-h-[400px] scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent">
+                {cssCodeblock}
+              </pre>
+            ) : (
+              <div className="relative bg-[#050505] p-6 rounded-[var(--radius-lg)] border border-zinc-800 flex items-center justify-center min-h-[150px] text-zinc-600 font-mono text-sm">
+                Awaiting configuration...
+              </div>
+            )}
+          </div>
+
           <button
-            className={`w-full py-4 rounded-[var(--radius-md)] text-white text-[16px] font-bold cursor-pointer transition-all duration-200 shadow-[var(--shadow-btn)] hover:bg-[#1b64da] active:scale-[0.98] ${isCopied ? 'bg-[#0b2b80]' : 'bg-[#3182f6]'}`}
+            className={`relative w-full py-5 rounded-[var(--radius-md)] text-white text-lg font-bold uppercase tracking-widest cursor-pointer transition-all duration-300 overflow-hidden group ${isCopied ? 'bg-emerald-500 shadow-[0_0_30px_rgba(16,185,129,0.5)]' : 'bg-zinc-800 hover:bg-zinc-700'} border border-zinc-700 hover:border-zinc-500 active:scale-[0.98]`}
             onClick={handleCopy}
-            title="복사하기"
+            title="Copy CSS"
           >
-            {isCopied ? '복사 완료' : 'CSS 복사하기'}
+            {/* Glow effect on hover */}
+            {!isCopied && (
+              <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.2)] to-transparent group-hover:left-[200%] transition-all duration-1000 ease-in-out skew-x-[-20deg]" />
+            )}
+
+            <span className="relative z-10 flex items-center justify-center gap-2">
+              {isCopied ? '✓ COPIED TO CLIPBOARD' : 'COPY CSS TO CLIPBOARD'}
+            </span>
           </button>
         </div>
       </div>
 
       {isCopied && (
-        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 bg-[#333d4b] text-white py-3.5 px-6 rounded-full font-semibold text-[15px] shadow-lg animate-[fadeInOut_2.5s_ease-in-out_forwards] pointer-events-none z-50">
-          클립보드에 복사되었어요
+        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 bg-[var(--color-card-bg)] backdrop-blur-xl border border-[var(--color-border-custom)] text-white py-3.5 px-6 rounded-full font-bold text-sm tracking-wide shadow-[0_0_20px_rgba(0,240,255,0.2)] animate-[fadeInOut_2.5s_ease-in-out_forwards] pointer-events-none z-50">
+          CSS copied to clipboard!
         </div>
       )}
     </main>
