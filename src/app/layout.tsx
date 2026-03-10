@@ -14,8 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Clamp Calculator | 유동적 타이포그래피 제너레이터',
-  description:
-    'Utopia 스타일의 Fluid Typography CSS clamp() 코드를 생성해주는 도구입니다.',
+  description: 'Fluid Typography CSS clamp() 코드를 생성해주는 도구입니다.',
 };
 
 export default function RootLayout({
@@ -24,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
       </body>
