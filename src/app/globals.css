@@ -1,21 +1,38 @@
-:root {
-  --background: #fdf5e6; /* Soft cream/peach background */
-  --foreground: #4a4a4a; /* Muted dark gray for text */
-  --primary: #ff8fa3; /* Cute pink */
-  --primary-hover: #ff748c;
-  --primary-shadow: #e05c75;
-  --secondary: #fff;
-  --card-bg: #ffffff;
-  --border: #ffd1dc;
-  --text-muted: #9e9e9e;
+@import 'tailwindcss';
+
+@theme {
+  --color-background: #fdf5e6;
+  --color-foreground: #4a4a4a;
+  --color-primary: #ff8fa3;
+  --color-primary-hover: #ff748c;
+  --color-primary-shadow: #e05c75;
+  --color-card-bg: #ffffff;
+  --color-border-custom: #ffd1dc;
+  --color-text-muted: #9e9e9e;
 
   --radius-xl: 32px;
   --radius-lg: 24px;
   --radius-md: 16px;
 
-  --shadow-3d: 0 8px 0 var(--border), 0 15px 20px rgba(255, 143, 163, 0.15);
-  --shadow-btn: 0 6px 0 var(--primary-shadow);
-  --shadow-btn-active: 0 2px 0 var(--primary-shadow);
+  --shadow-3d:
+    0 8px 0 var(--color-border-custom), 0 15px 20px rgba(255, 143, 163, 0.15);
+  --shadow-btn: 0 6px 0 var(--color-primary-shadow);
+  --shadow-btn-active: 0 2px 0 var(--color-primary-shadow);
+
+  --font-sans:
+    'Jua', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+    'Pretendard', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+:root {
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --primary: var(--color-primary);
+  --primary-hover: var(--color-primary-hover);
+  --primary-shadow: var(--color-primary-shadow);
+  --card-bg: var(--color-card-bg);
+  --border: var(--color-border-custom);
+  --text-muted: var(--color-text-muted);
 }
 
 * {

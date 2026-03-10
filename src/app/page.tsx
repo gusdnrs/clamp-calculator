@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import styles from './page.module.css';
 
 // Interface for breakpoint data
 interface Breakpoint {
@@ -100,7 +99,7 @@ export default function Home() {
     // Sort valid breakpoints by width just in case
     const sorted = [...validBps].sort((a, b) => a.width - b.width);
 
-    let codeChunks = [];
+    const codeChunks = [];
     codeChunks.push(`/* ${className.toUpperCase()}: 섹션 유틸리티 */`);
     codeChunks.push(`@utility ${className} {`);
 
@@ -235,30 +234,53 @@ export default function Home() {
   };
 
   return (
-    <main className={styles.main}>
-      <h1 className={styles.title}>Tailwind V4 Fluid Gen</h1>
-      <p className={styles.subtitle}>
+    <main className="flex flex-col items-center justify-center min-h-screen py-12 px-4 relative overflow-x-hidden">
+      {/* Dynamic Keyframes injected via generic style block since Tailwind arbitrary animations need keyframes */}
+      <style>{`
+        @keyframes bounceIn {
+          from { opacity: 0; transform: scale(0.9) translateY(20px); }
+          to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes fadeInOut {
+          0% { opacity: 0; transform: translate(-50%, 50px) scale(0.8); }
+          15% { opacity: 1; transform: translate(-50%, 0) scale(1.1); }
+          25% { transform: translate(-50%, 0) scale(1); }
+          85% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+          100% { opacity: 0; transform: translate(-50%, -20px) scale(0.8); }
+        }
+      `}</style>
+
+      <h1 className="text-4xl font-extrabold mb-2 text-[var(--color-primary)] [text-shadow:2px_2px_0px_var(--color-border-custom)] tracking-tight text-center">
+        Tailwind V4 Fluid Gen
+      </h1>
+      <p className="text-lg text-[var(--color-text-muted)] mb-8 font-semibold text-center">
         ✨ 자유롭게 구성하는 반응형 제너레이터 ✨
       </p>
 
-      <div className={styles.card}>
-        <div className={styles.sectionTitle}>기본 설정</div>
-        <div className={styles.grid2}>
-          <div className={styles.formGroup}>
-            <label className={styles.label}>클래스 이름 (Class Name)</label>
+      <div className="bg-[var(--color-card-bg)] rounded-[var(--radius-xl)] shadow-[var(--shadow-3d)] border-4 border-[var(--color-border-custom)] p-6 md:p-10 w-full max-w-[900px] animate-[bounceIn_0.6s_cubic-bezier(0.68,-0.55,0.265,1.55)_forwards]">
+        <div className="text-xl font-extrabold text-[var(--color-primary)] mb-4 flex items-center gap-2 before:content-['✨']">
+          기본 설정
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <div className="flex flex-col gap-2 mb-3 w-full">
+            <label className="text-sm font-bold text-[var(--color-foreground)]">
+              클래스 이름 (Class Name)
+            </label>
             <input
               type="text"
-              className={styles.input}
+              className="w-full box-border py-3 px-4 rounded-[var(--radius-md)] border-2 border-[var(--color-border-custom)] text-base font-semibold text-gray-800 transition-all duration-200 bg-[#fff9fa] focus:outline-none focus:border-[var(--color-primary)] focus:bg-[var(--color-card-bg)] focus:ring-4 focus:ring-[rgba(255,143,163,0.2)]"
               value={className}
               onChange={(e) => setClassName(e.target.value)}
               placeholder="text-h1"
             />
           </div>
-          <div className={styles.formGroup}>
-            <label className={styles.label}>기준 폰트 (Base px)</label>
+          <div className="flex flex-col gap-2 mb-3 w-full">
+            <label className="text-sm font-bold text-[var(--color-foreground)]">
+              기준 폰트 (Base px)
+            </label>
             <input
               type="number"
-              className={styles.input}
+              className="w-full box-border py-3 px-4 rounded-[var(--radius-md)] border-2 border-[var(--color-border-custom)] text-base font-semibold text-gray-800 transition-all duration-200 bg-[#fff9fa] focus:outline-none focus:border-[var(--color-primary)] focus:bg-[var(--color-card-bg)] focus:ring-4 focus:ring-[rgba(255,143,163,0.2)]"
               value={baseFont || ''}
               onChange={(e) => setBaseFont(Number(e.target.value))}
               placeholder="16"
@@ -266,24 +288,27 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={styles.divider} />
+        <div className="h-1 bg-[var(--color-border-custom)] my-8 rounded-sm border-none" />
 
-        <div className={styles.sectionTitle}>
+        <div className="text-xl font-extrabold text-[var(--color-primary)] mb-4 flex items-center gap-2 before:content-['✨']">
           구간 설정 (Breakpoints)
-          <span className={styles.hint}>
+          <span className="text-sm font-semibold text-[var(--color-text-muted)] bg-[var(--color-background)] px-3 py-1 rounded-full ml-auto max-md:hidden">
             가로로 스크롤하여 구간을 추가해 보세요 👉
           </span>
         </div>
 
-        {/* Horizontal Container */}
-        <div className={styles.bpListContainer}>
-          <div className={styles.bpScroller}>
+        {/* Breakpoints Container */}
+        <div className="md:-mx-10 md:px-10 w-full md:w-[calc(100%+5rem)] mx-0 px-0">
+          <div className="flex flex-col md:flex-row overflow-x-visible md:overflow-x-auto gap-4 md:gap-6 py-2 md:pb-8 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-[var(--color-primary)] scrollbar-track-[var(--color-background)]">
             {bps.map((bp, i) => (
-              <div key={bp.id} className={styles.bpCard}>
+              <div
+                key={bp.id}
+                className="flex-none w-full md:w-[280px] snap-start bg-[#fff9fa] p-5 md:p-6 rounded-[var(--radius-lg)] border-4 border-dashed border-[var(--color-border-custom)] transition-all duration-200 ease-out hover:md:-translate-y-1 hover:md:scale-[1.02] hover:border-[var(--color-primary-shadow)] hover:shadow-[0_8px_20px_rgba(255,143,163,0.2)] relative flex flex-col justify-start"
+              >
                 {/* Remove Button if more than 2 */}
                 {bps.length > 2 && (
                   <button
-                    className={styles.removeBtn}
+                    className="absolute -top-3 -right-3 w-7 h-7 rounded-full bg-red-500 text-white border-2 border-white font-bold text-xs cursor-pointer flex items-center justify-center shadow-[var(--shadow-btn-active)] z-10 transition-transform duration-100 hover:scale-110 hover:bg-red-600 active:scale-90"
                     onClick={() => removeNode(bp.id)}
                     title="삭제"
                   >
@@ -291,21 +316,23 @@ export default function Home() {
                   </button>
                 )}
 
-                <div className={styles.bpHeader}>
-                  <div className={styles.bpBadgeRow}>
-                    <span className={styles.bpBadge}>
+                <div className="mb-5">
+                  <div className="flex items-center justify-between">
+                    <span className="bg-[var(--color-primary)] text-white py-1.5 px-3.5 rounded-full text-xs font-extrabold tracking-wider shadow-[0_2px_0_var(--color-primary-shadow)]">
                       {i === 0 ? 'BASE' : `STEP ${i}`}
                     </span>
-                    <span className={styles.deviceLabel}>
+                    <span className="text-sm font-bold text-gray-500 bg-white py-1 px-2.5 rounded-md border border-gray-200">
                       {getDeviceLabel(bp.width)}
                     </span>
                   </div>
                 </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.label}>프리셋 선택</label>
+                <div className="flex flex-col gap-2 mb-3 w-full">
+                  <label className="text-sm font-bold text-[var(--color-foreground)]">
+                    프리셋 선택
+                  </label>
                   <select
-                    className={styles.select}
+                    className="w-full box-border py-3 px-4 rounded-[var(--radius-md)] border-2 border-[var(--color-border-custom)] text-base font-semibold text-gray-800 transition-all duration-200 bg-[#fff9fa] appearance-none cursor-pointer focus:outline-none focus:border-[var(--color-primary)] focus:bg-[var(--color-card-bg)] focus:ring-4 focus:ring-[rgba(255,143,163,0.2)] bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg_xmlns=%27http://www.w3.org/2000/svg%27_viewBox=%270_0_24_24%27_fill=%27none%27_stroke=%27%23ff8fa3%27_stroke-width=%272%27_stroke-linecap=%27round%27_stroke-linejoin=%27round%27%3e%3cpolyline_points=%276_9_12_15_18_9%27%3e%3c/polyline%3e%3c/svg%3e')] bg-no-repeat bg-[position:right_1rem_center] border-[length:1em] pr-10"
                     value={bp.name}
                     onChange={(e) =>
                       handleBpChange(bp.id, 'name', e.target.value)
@@ -319,11 +346,13 @@ export default function Home() {
                   </select>
                 </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.label}>뷰포트 넓이 (px)</label>
+                <div className="flex flex-col gap-2 mb-3 w-full">
+                  <label className="text-sm font-bold text-[var(--color-foreground)]">
+                    뷰포트 넓이 (px)
+                  </label>
                   <input
                     type="number"
-                    className={styles.input}
+                    className="w-full box-border py-3 px-4 rounded-[var(--radius-md)] border-2 border-[var(--color-border-custom)] text-base font-semibold text-gray-800 transition-all duration-200 bg-[#fff9fa] focus:outline-none focus:border-[var(--color-primary)] focus:bg-[var(--color-card-bg)] focus:ring-4 focus:ring-[rgba(255,143,163,0.2)] disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200 disabled:cursor-not-allowed"
                     value={bp.width}
                     onChange={(e) =>
                       handleBpChange(
@@ -332,15 +361,17 @@ export default function Home() {
                         e.target.value ? Number(e.target.value) : '',
                       )
                     }
-                    disabled={bp.name !== 'custom' && bp.name !== 'base'} // Base 320px is sometimes tweaked, but preset tailwinds lock width.
+                    disabled={bp.name !== 'custom' && bp.name !== 'base'}
                   />
                 </div>
 
-                <div className={styles.formGroup} style={{ marginBottom: 0 }}>
-                  <label className={styles.label}>폰트 크기 (px)</label>
+                <div className="flex flex-col gap-2 m-0 w-full">
+                  <label className="text-sm font-bold text-[var(--color-foreground)]">
+                    폰트 크기 (px)
+                  </label>
                   <input
                     type="number"
-                    className={styles.input}
+                    className="w-full box-border py-3 px-4 rounded-[var(--radius-md)] border-2 border-[var(--color-border-custom)] text-base font-semibold text-gray-800 transition-all duration-200 bg-[#fff9fa] focus:outline-none focus:border-[var(--color-primary)] focus:bg-[var(--color-card-bg)] focus:ring-4 focus:ring-[rgba(255,143,163,0.2)]"
                     value={bp.font}
                     onChange={(e) =>
                       handleBpChange(
@@ -355,20 +386,27 @@ export default function Home() {
             ))}
 
             {/* Add Node Button Block */}
-            <div className={styles.addNodeCard} onClick={addNode}>
-              <div className={styles.addIcon}>+</div>
+            <div
+              className="flex-none w-full md:w-[200px] min-h-[120px] md:min-h-[200px] snap-start bg-white/50 border-4 border-dashed border-[var(--color-border-custom)] rounded-[var(--radius-lg)] flex flex-col items-center justify-center cursor-pointer opacity-80 text-[var(--color-primary)] font-extrabold text-lg transition-all duration-200 hover:opacity-100 hover:bg-[#fff9fa] hover:border-[var(--color-primary)] hover:md:-translate-y-1 active:md:translate-y-1"
+              onClick={addNode}
+            >
+              <div className="text-5xl mb-2 leading-none">+</div>
               <div>구간 추가하기</div>
             </div>
           </div>
         </div>
 
-        <div className={styles.resultSection}>
-          <h3 className={styles.resultLabel}>결과값 (Tailwind V4 @utility)</h3>
+        <div className="mt-8">
+          <h3 className="text-lg font-extrabold text-[var(--color-primary)] mb-4 text-center">
+            결과값 (Tailwind V4 @utility)
+          </h3>
           {cssCodeblock && (
-            <pre className={styles.resultCodeBlock}>{cssCodeblock}</pre>
+            <pre className="bg-[#282a36] text-[#f8f8f2] p-6 rounded-[var(--radius-lg)] font-mono text-sm leading-relaxed overflow-x-auto border-4 border-[#191a21] shadow-[inset_0_4px_6px_rgba(0,0,0,0.3)] mb-8">
+              {cssCodeblock}
+            </pre>
           )}
           <button
-            className={`${styles.resultButton} ${isCopied ? styles.copied : ''}`}
+            className={`w-full p-5 rounded-[var(--radius-lg)] border-2 border-[var(--color-primary-shadow)] bg-[var(--color-primary)] text-white text-xl font-extrabold cursor-pointer transition-all duration-100 shadow-[var(--shadow-btn)] relative top-0 hover:bg-[var(--color-primary-hover)] active:top-1.5 active:shadow-[0_0_0_var(--color-primary-shadow)] ${isCopied ? 'bg-green-500 border-green-700 shadow-[0_6px_0_#388E3C] active:shadow-[0_0_0_#388E3C]' : ''}`}
             onClick={handleCopy}
             title="복사하기"
           >
@@ -378,7 +416,9 @@ export default function Home() {
       </div>
 
       {isCopied && (
-        <div className={styles.toast}>클립보드에 안전하게 복사되었어요! 🚀</div>
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-[var(--color-primary)] text-white py-4 px-8 rounded-full font-extrabold text-base shadow-[var(--shadow-3d)] border-2 border-white animate-[fadeInOut_2.5s_cubic-bezier(0.68,-0.55,0.265,1.55)_forwards] pointer-events-none z-50">
+          클립보드에 안전하게 복사되었어요! 🚀
+        </div>
       )}
     </main>
   );
